@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Events · MSJ Key Club</title>
+  <link rel="icon" href="assets/bee.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="events">
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Events</p>
+        <h1>Find your next way to serve.</h1>
+        <p class="lead">Service projects, fundraisers, meetings, and socials — all in one place. Add any event to your calendar with one tap.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:90px">
+      <div class="container">
+        <div class="filters" role="group" aria-label="Filter events" id="filters"></div>
+        <div class="event-list" id="events" aria-live="polite"></div>
+
+        <h2 style="margin-top:110px;font-size:clamp(30px,3vw,48px)">Past events</h2>
+        <div class="event-list" id="past" style="opacity:.75"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const all = KC.upcoming();
+    const cats = ["All", ...new Set(window.CLUB.events.map((e) => e.category))];
+    const filters = document.getElementById("filters");
+    const out = document.getElementById("events");
+    let active = "All";
+    function render() {
+      filters.innerHTML = cats.map((c) => `<button class="chip" aria-pressed="${c === active}">${c}</button>`).join("");
+      const list = active === "All" ? all : all.filter((e) => e.category === active);
+      out.innerHTML = list.length ? list.map(KC.eventCard).join("") : '<p class="empty">No upcoming events in this category.</p>';
+    }
+    filters.addEventListener("click", (e) => {
+      const b = e.target.closest(".chip"); if (!b) return;
+      active = b.textContent; render();
+    });
+    render();
+
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const past = window.CLUB.events.filter((e) => KC.parseDate(e.date) < today)
+      .sort((a, b) => KC.parseDate(b.date) - KC.parseDate(a.date));
+    document.getElementById("past").innerHTML = past.length
+      ? past.map(KC.eventCard).join("") : '<p class="empty">Past events will show up here.</p>';
+  </script>
+</body>
+</html>

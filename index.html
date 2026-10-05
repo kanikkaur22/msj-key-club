@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MSJ Key Club</title>
+  <meta name="description" content="Mission San Jose High School Key Club — student-led service that strengthens our school and our community.">
+  <link rel="icon" href="assets/bee.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="home">
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Mission San Jose High · Key Club</p>
+        <h1>Serve together. Grow together. Bee the change.</h1>
+        <p class="lead">We're a student-led service club connecting MSJ students with meaningful volunteer work, leadership opportunities, and a community that cares.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="join.html">Join the hive <span data-icon="arrow"></span></a>
+          <a class="btn btn-outline" href="events.html">See upcoming events <span data-icon="arrow"></span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">What's next</p>
+        <h2>Upcoming events</h2>
+        <div class="event-list" id="next-events"></div>
+        <div class="btn-row" style="margin-top:40px"><a class="btn btn-outline" href="events.html">View all events <span data-icon="arrow"></span></a></div>
+      </div>
+    </section>
+
+    <section class="section section-tint">
+      <div class="container">
+        <p class="eyebrow">Why join</p>
+        <h2>More than service hours.</h2>
+        <div class="grid-3" style="margin-top:70px">
+          <div class="card reveal"><div class="icon-chip" data-icon="heart"></div><h3>Give back</h3><p>Volunteer at local events, fundraisers, and drives that make a real difference in Fremont.</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="users"></div><h3>Find your people</h3><p>Meet friends across grades and other schools in Division 12 East.</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="sparkles"></div><h3>Lead & be recognized</h3><p>Run for office, lead projects, and earn CNH District MRP awards.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="container">
+        <p class="eyebrow">Meet with us</p>
+        <h2 data-text="meeting.day">Tuesdays at 3:15 PM</h2>
+        <p class="lead" data-text="meeting.place">Room 214 · Mission San Jose High</p>
+        <div class="btn-row"><a class="btn btn-primary" style="background:var(--yellow);color:var(--ink);box-shadow:0 8px 0 #c9a033" href="join.html">Join the hive <span data-icon="arrow"></span></a></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const list = KC.upcoming().slice(0, 3);
+    document.getElementById("next-events").innerHTML = list.length
+      ? list.map(KC.eventCard).join("")
+      : '<p class="empty">No upcoming events yet — check back soon!</p>';
+  </script>
+</body>
+</html>

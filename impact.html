@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Impact · MSJ Key Club</title>
+  <link rel="icon" href="assets/bee.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="impact">
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Our impact</p>
+        <h1>Small acts. Big buzz.</h1>
+        <p class="lead">Every hour our members serve adds up. Here's what the hive has accomplished this year.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card reveal">
+          <p class="eyebrow" style="margin:0">Club goal</p>
+          <h3 style="margin:16px 0 0" id="goal-title">Service hours</h3>
+          <div class="progress" role="progressbar" aria-valuemin="0" id="goal-bar"><span></span></div>
+          <p style="margin-top:16px" id="goal-text"></p>
+        </div>
+        <div class="grid-3" style="margin-top:34px" id="stats"></div>
+      </div>
+    </section>
+
+    <section class="section section-tint">
+      <div class="container">
+        <p class="eyebrow">Where it goes</p>
+        <h2>Causes we support</h2>
+        <div class="grid-3" style="margin-top:70px" id="highlights"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const I = window.CLUB.impact;
+    const ICONS = ["heart", "users", "sparkles", "pin", "heart", "sparkles"];
+    document.getElementById("stats").innerHTML = I.stats.map((s, i) => `
+      <div class="card stat reveal"><div class="icon-chip">${icon(ICONS[i % ICONS.length])}</div>
+        <div class="n" data-i="${i}">0</div><div class="l">${KC.esc(s.label)}</div></div>`).join("");
+    document.getElementById("highlights").innerHTML = I.highlights.map((h, i) => `
+      <div class="card reveal in"><div class="icon-chip">${icon(ICONS[i])}</div><h3>${KC.esc(h.title)}</h3><p>${KC.esc(h.text)}</p></div>`).join("");
+
+    const hours = I.stats[0].value;
+    const pct = Math.min(100, Math.round((hours / I.goalHours) * 100));
+    const bar = document.getElementById("goal-bar");
+    bar.setAttribute("aria-valuemax", I.goalHours); bar.setAttribute("aria-valuenow", hours);
+    document.getElementById("goal-text").textContent = `${hours.toLocaleString()} of ${I.goalHours.toLocaleString()} hours · ${pct}% of the way there`;
+
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      e.target.classList.add("in");
+      const n = e.target.querySelector(".n");
+      if (n) { const s = I.stats[n.dataset.i]; KC.countUp(n, s.value, s.prefix || "", s.suffix || ""); }
+      if (e.target.contains(bar)) bar.firstElementChild.style.width = pct + "%";
+    }), { threshold: 0.3 });
+    document.querySelectorAll(".stat, .card:has(#goal-bar)").forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

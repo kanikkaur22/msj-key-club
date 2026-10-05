@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join · MSJ Key Club</title>
+  <link rel="icon" href="assets/bee.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="join">
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Join the hive</p>
+        <h1>Ready to make a difference?</h1>
+        <p class="lead">Any MSJ student can join. Come to a Tuesday meeting, pay dues, and start signing up for events — it's that easy.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:90px">
+      <div class="container">
+        <div class="grid-3">
+          <div class="card reveal"><div class="icon-chip" data-icon="pin"></div><h3>1. Show up</h3><p data-text="meeting.day">Tuesdays at 3:15 PM</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="users"></div><h3>2. Sign up</h3><p>Fill out the interest form so officers can add you to club updates.</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="heart"></div><h3>3. Serve</h3><p>Pick events from the calendar and start earning service hours.</p></div>
+        </div>
+
+        <h2 style="margin-top:110px">Interest form</h2>
+        <div id="external" hidden style="margin-top:40px">
+          <a class="btn btn-primary" data-link="joinForm" target="_blank" rel="noopener">Open the sign-up form <span data-icon="arrow"></span></a>
+        </div>
+        <form class="form" id="join-form" novalidate>
+          <div class="form-row">
+            <label>Full name<input name="name" required autocomplete="name"></label>
+            <label>School email<input name="email" type="email" required autocomplete="email"></label>
+          </div>
+          <div class="form-row">
+            <label>Grade
+              <select name="grade" required><option value="">Choose…</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
+            </label>
+            <label>How did you hear about us?<input name="source"></label>
+          </div>
+          <label>What kinds of service interest you?<textarea name="interests" rows="4"></textarea></label>
+          <div><button class="btn btn-primary" type="submit">Send interest <span data-icon="arrow"></span></button></div>
+          <p class="notice" id="form-msg" hidden></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // If a Google Form link is set in data.js, show that instead of the built-in form.
+    if (window.CLUB.links.joinForm) {
+      document.getElementById("external").hidden = false;
+      document.getElementById("join-form").hidden = true;
+    }
+    const form = document.getElementById("join-form");
+    const msg = document.getElementById("form-msg");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        msg.hidden = false; msg.textContent = "Please fill in your name, a valid email, and your grade.";
+        form.querySelector(":invalid").focus();
+        return;
+      }
+      const fd = new FormData(form);
+      const name = fd.get("name").split(" ")[0];
+      // This site has no backend: if a club email is set, open a pre-filled email to the officers.
+      const to = window.CLUB.contact.email;
+      if (to) {
+        const body = [...fd].map(([k, v]) => `${k}: ${v}`).join("\n");
+        location.href = `mailto:${to}?subject=${encodeURIComponent("Key Club interest: " + fd.get("name"))}&body=${encodeURIComponent(body)}`;
+      }
+      msg.hidden = false;
+      msg.textContent = `Thanks, ${name}! 🐝 See you at our next meeting — ${window.CLUB.meeting.day}, ${window.CLUB.meeting.place}.`;
+      form.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us · MSJ Key Club</title>
+  <meta name="description" content="About Mission San Jose Key Club — Division 12 East, California-Nevada-Hawaii District.">
+  <link rel="icon" href="assets/bee.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="about">
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">About our club</p>
+        <h1>Students leading with purpose.</h1>
+        <p class="lead">MSJ Key Club is part of Division 12 East in the California-Nevada-Hawaii District. Together, we serve our community, develop leadership, and build lasting connections.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Who we are</p>
+        <h2>Service is at the heart of everything we do.</h2>
+        <p class="lead">Key Club is an international, student-led organization that provides its members with opportunities to provide service, build character, and develop leadership.</p>
+        <div class="btn-row">
+          <a class="btn btn-outline" data-link="division" target="_blank" rel="noopener">Division 12 East website <span data-icon="arrow"></span></a>
+          <a class="btn btn-outline" data-link="district" target="_blank" rel="noopener">CNH District website <span data-icon="arrow"></span></a>
+        </div>
+
+        <div class="grid-2" style="margin-top:90px">
+          <div class="card reveal"><div class="icon-chip" data-icon="sparkles"></div><h3>Our vision</h3><p>We are caring and competent servant leaders transforming communities worldwide.</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="heart"></div><h3>Our motto</h3><p>Caring—Our Way of Life.</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="users"></div><h3>Core values</h3><p>Leadership, character building, caring, and inclusiveness.</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="pin"></div><h3>Our district</h3><p>Division 12 East · California-Nevada-Hawaii District</p></div>
+        </div>
+
+        <div class="pledge reveal">
+          <p class="eyebrow">The Key Club pledge</p>
+          <div class="bar"></div>
+          <blockquote>“I pledge, on my honor, to uphold the Objects of Key Club International; to build my home, school and community; to serve my nation and God; and combat all forces which tend to undermine these institutions.”</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="mrp">
+      <div class="container">
+        <p class="eyebrow">Member recognition program</p>
+        <h2 style="font-size:clamp(40px,5vw,82px)">Let your service be recognized.</h2>
+        <p class="lead">The Member Recognition Program, or MRP, recognizes members across the CNH District for their dedication to Key Club.</p>
+        <div class="steps">
+          <div class="step reveal"><div class="num">01</div><h3>What is it?</h3><p>Members work toward one of four recognition levels—bronze, silver, gold, or platinum. Each level requires a set number of service hours and additional fulfillments.</p></div>
+          <div class="step reveal"><div class="num">02</div><h3>Why participate?</h3><p>MRP celebrates your passion and commitment to service. Qualifying members receive an official CNH District award and are invited to walk across the stage at District Convention.</p></div>
+          <div class="step reveal"><div class="num">03</div><h3>How do I learn more?</h3><p>Review the official CNH recognition requirements, then check with the club Secretary to make sure the service hours on your Member Recognition Form are accurate.</p></div>
+        </div>
+        <div class="cta-card reveal">
+          <div>
+            <h3>Ready to work toward an award?</h3>
+            <p>Questions about recorded hours may be directed to <span data-text="secretary">the Club Secretary</span>.</p>
+          </div>
+          <a class="btn btn-primary" data-link="mrp" target="_blank" rel="noopener">View MRP requirements <span data-icon="arrow"></span></a>
+        </div>
+        <div class="levels" role="group" aria-label="Recognition levels">
+          <button class="level bronze" aria-pressed="false">Bronze</button>
+          <button class="level silver" aria-pressed="false">Silver</button>
+          <button class="level gold" aria-pressed="false">Gold</button>
+          <button class="level platinum" aria-pressed="false">Platinum</button>
+        </div>
+        <p class="level-detail" id="level-detail" aria-live="polite">Tap a level to learn more.</p>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <p class="eyebrow">Contact us</p>
+        <h2>Let's stay connected.</h2>
+        <p class="lead">Have a question about membership, service hours, or an upcoming event? Reach out to the officer team or stop by our next meeting.</p>
+        <div class="grid-2 contact-grid" id="contact-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const C = window.CLUB;
+    // MRP levels
+    const detail = document.getElementById("level-detail");
+    document.querySelectorAll(".level").forEach((b) => b.addEventListener("click", () => {
+      document.querySelectorAll(".level").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      detail.textContent = C.mrpLevels[b.textContent.trim()];
+    }));
+    // Contact cards
+    const card = (ic, label, value, href) => `
+      <div class="contact-card reveal in"><div class="icon-chip">${icon(ic)}</div>
+        <div class="label">${label}</div>
+        ${href ? `<a class="value" href="${href}" target="_blank" rel="noopener">${KC.esc(value)}</a>` : `<div class="value">${KC.esc(value)}</div>`}
+      </div>`;
+    document.getElementById("contact-grid").innerHTML =
+      card("heart", "Club email", C.contact.email || "Add club email address", C.contact.email && "mailto:" + C.contact.email) +
+      card("users", "Social media", C.contact.social || "Add club social handle", C.contact.socialUrl) +
+      card("pin", "Meeting location", C.meeting.place) +
+      card("sparkles", "Division", "Division 12 East · CNH District", C.links.division);
+  </script>
+</body>
+</html>
