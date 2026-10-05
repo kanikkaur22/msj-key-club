@@ -18,6 +18,19 @@ window.CLUB = {
     joinForm: "",                          // optional Google Form link; if set, "Join" goes there
   },
 
+  // Officer board — replace names/bios. "photo" is optional (e.g. "assets/officers/jane.jpg");
+  // without a photo, the officer's initials are shown.
+  officerYear: "2026–2027",
+  officers: [
+    { role: "President", name: "Officer name", grade: "", bio: "Leads the board and runs weekly meetings.", photo: "" },
+    { role: "Vice President", name: "Officer name", grade: "", bio: "Supports the President and coordinates committees.", photo: "" },
+    { role: "Secretary", name: "Gitali", grade: "", bio: "Tracks service hours and MRP forms. Questions about hours? Ask here.", photo: "" },
+    { role: "Treasurer", name: "Officer name", grade: "", bio: "Manages dues, fundraisers, and club finances.", photo: "" },
+    { role: "Editor", name: "Officer name", grade: "", bio: "Writes the monthly newsletter and keeps members informed.", photo: "" },
+    { role: "Webmaster", name: "Officer name", grade: "", bio: "Maintains this website and club social media.", photo: "" },
+  ],
+  advisor: { name: "Faculty advisor name", room: "Room 214" },
+
   // Categories: "Service", "Fundraiser", "Meeting", "Social", "Division"
   events: [
     { title: "General Meeting", date: "2026-10-07", time: "3:15 PM", place: "Room 214", category: "Meeting",

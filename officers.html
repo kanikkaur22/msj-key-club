@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Officers · MSJ Key Club</title>
+  <link rel="icon" href="assets/bee.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="officers">
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Officer board</p>
+        <h1>Meet the team behind the hive.</h1>
+        <p class="lead">Our officers plan events, track service hours, and keep the club running. Reach out anytime — we're happy to help.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:72px">
+      <div class="container">
+        <p class="eyebrow" id="officer-year">Officers</p>
+        <div class="grid-3" id="officers"></div>
+
+        <div class="cta-card reveal" style="margin-top:48px">
+          <div>
+            <h3>Faculty advisor</h3>
+            <p id="advisor"></p>
+          </div>
+          <a class="btn btn-primary" href="about.html#contact">Contact us <span data-icon="arrow"></span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const C = window.CLUB;
+    const initials = (n) => n.split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+    document.getElementById("officer-year").textContent = `${C.officerYear} officers`;
+    document.getElementById("officers").innerHTML = C.officers.map((o) => `
+      <div class="card officer reveal in">
+        ${o.photo
+          ? `<img class="avatar" src="${KC.esc(o.photo)}" alt="${KC.esc(o.name)}">`
+          : `<div class="avatar" aria-hidden="true">${KC.esc(initials(o.name))}</div>`}
+        <span class="tag" style="margin-top:18px">${KC.esc(o.role)}</span>
+        <h3 style="margin-top:4px">${KC.esc(o.name)}</h3>
+        ${o.grade ? `<div class="officer-grade">Grade ${KC.esc(o.grade)}</div>` : ""}
+        <p style="margin-top:8px">${KC.esc(o.bio)}</p>
+      </div>`).join("");
+    document.getElementById("advisor").textContent = `${C.advisor.name} · ${C.advisor.room}`;
+  </script>
+</body>
+</html>

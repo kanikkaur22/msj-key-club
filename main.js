@@ -16,7 +16,7 @@
   const icon = (n) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg>`;
   window.icon = icon;
 
-  const NAV = [["index.html", "Home", "home"], ["events.html", "Events", "events"], ["impact.html", "Our impact", "impact"], ["about.html", "About us", "about"]];
+  const NAV = [["index.html", "Home", "home"], ["events.html", "Events", "events"], ["impact.html", "Our impact", "impact"], ["officers.html", "Officers", "officers"], ["about.html", "About us", "about"]];
 
   // ----- Header -----
   const header = document.createElement("header");
@@ -49,7 +49,7 @@
   }
   // hide mobile-only join link on desktop
   const style = document.createElement("style");
-  style.textContent = "@media (min-width:1081px){.nav-join{display:none!important}}";
+  style.textContent = "@media (min-width:861px){.nav-join{display:none!important}}";
   document.head.appendChild(style);
 
   // ----- Footer -----
@@ -64,7 +64,7 @@
       <div>
         <h4 class="footer-title">Explore</h4>
         <ul class="footer-links">
-          <li><a href="events.html">Events</a></li><li><a href="impact.html">Our impact</a></li><li><a href="about.html">About us</a></li>
+          <li><a href="events.html">Events</a></li><li><a href="impact.html">Our impact</a></li><li><a href="officers.html">Officers</a></li><li><a href="about.html">About us</a></li>
         </ul>
       </div>
       <div class="footer-meet">
