@@ -37,7 +37,7 @@ window.CLUB = {
     ],
   },
 
-  // Categories: "Service", "Fundraiser", "Social", "Division"
+  // Categories: "Service", "Fundraiser", "Division"
   events: [
     { title: "Park Cleanup at Central Park", date: "2026-10-11", time: "9:00 AM – 12:00 PM", place: "Fremont Central Park", category: "Service",
       description: "Help pick up litter and restore trails around Lake Elizabeth.", hours: 3 },
@@ -47,8 +47,6 @@ window.CLUB = {
       description: "Monthly division meeting with clubs across Division 12 East." },
     { title: "Food Bank Sorting", date: "2026-11-15", time: "10:00 AM – 1:00 PM", place: "Tri-City Volunteers", category: "Service",
       description: "Sort and pack donations for families in our community.", hours: 3 },
-    { title: "Holiday Social", date: "2026-12-12", time: "6:00 PM", place: "MSJ Library", category: "Social",
-      description: "Games, snacks, and a gift exchange with the hive." },
   ],
 
   // Club goals for the year. Set "current" to show a progress bar (leave null to hide it).
