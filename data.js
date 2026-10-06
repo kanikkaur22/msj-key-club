@@ -22,18 +22,18 @@ window.CLUB = {
   officerYear: "2026–2027",
   officers: {
     executives: [
-      { role: "President", name: "Officer name", grade: "", bio: "Leads the officer board and sets the club's direction for the year.", photo: "" },
-      { role: "Vice President", name: "Officer name", grade: "", bio: "Supports the President and helps run club projects.", photo: "" },
-      { role: "Vice President", name: "Officer name", grade: "", bio: "Supports the President and helps run club projects.", photo: "" },
-      { role: "Secretary", name: "Officer name", grade: "", bio: "Tracks service hours and MRP forms. Questions about hours? Ask here.", photo: "" },
-      { role: "Treasurer", name: "Officer name", grade: "", bio: "Manages dues, fundraisers, and the club account.", photo: "" },
-      { role: "Bulletin Editor", name: "Officer name", grade: "", bio: "Writes the club bulletin and keeps members informed.", photo: "" },
+      { role: "President", name: "Riya", grade: "12", bio: "Leads the officer board and sets the club's direction for the year.", photo: "assets/officers/riya.jpg" },
+      { role: "Vice President", name: "Shravika", grade: "12", bio: "Supports the President and helps run club projects.", photo: "assets/officers/shravika.jpg" },
+      { role: "Vice President", name: "Michelle", grade: "11", bio: "Supports the President and helps run club projects.", photo: "assets/officers/michelle.jpg" },
+      { role: "Secretary", name: "Celina", grade: "12", bio: "Tracks service hours and MRP forms. Questions about hours? Ask here.", photo: "assets/officers/celina.jpg" },
+      { role: "Treasurer", name: "Deborah", grade: "11", bio: "Manages dues, fundraisers, and the club account.", photo: "assets/officers/deborah.jpg" },
+      { role: "Bulletin Editor", name: "Kanik", grade: "10", bio: "Writes the club bulletin and keeps members informed.", photo: "assets/officers/kanik.jpg" },
     ],
     nonExecutives: [
-      { role: "Activity Coordinator", name: "Officer name", grade: "", bio: "Plans service events and volunteer opportunities.", photo: "" },
-      { role: "Activity Coordinator", name: "Officer name", grade: "", bio: "Plans service events and volunteer opportunities.", photo: "" },
-      { role: "Meeting Coordinator", name: "Officer name", grade: "", bio: "Organizes club meetings and gatherings.", photo: "" },
-      { role: "Publicist", name: "Officer name", grade: "", bio: "Runs @msjkeyclub and spreads the word about events.", photo: "" },
+      { role: "Activities Coordinator", name: "Elizabeth", grade: "11", bio: "Plans service events and volunteer opportunities.", photo: "assets/officers/elizabeth.jpg" },
+      { role: "Activities Coordinator", name: "Vedansh", grade: "10", bio: "Plans service events and volunteer opportunities.", photo: "assets/officers/vedansh.jpg" },
+      { role: "Meetings Coordinator", name: "Anant", grade: "10", bio: "Organizes club meetings and gatherings.", photo: "assets/officers/anant.jpg" },
+      { role: "Publicist", name: "Aarna", grade: "11", bio: "Runs @msjkeyclub and spreads the word about events.", photo: "assets/officers/aarna.jpg" },
     ],
   },
 
