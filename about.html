@@ -76,7 +76,7 @@
       <div class="container">
         <p class="eyebrow">Contact us</p>
         <h2>Let's stay connected.</h2>
-        <p class="lead">Have a question about membership, service hours, or an upcoming event? Reach out to the officer team or stop by our next meeting.</p>
+        <p class="lead">Have a question about membership, service hours, or an upcoming event? Reach out to the officer team by email or on Instagram.</p>
         <div class="grid-2 contact-grid" id="contact-grid"></div>
       </div>
     </section>
@@ -101,7 +101,7 @@
     document.getElementById("contact-grid").innerHTML =
       card("heart", "Club email", C.contact.email || "Add club email address", C.contact.email && "mailto:" + C.contact.email) +
       card("users", "Social media", C.contact.social || "Add club social handle", C.contact.socialUrl) +
-      card("pin", "Meeting location", C.meeting.place) +
+      card("pin", "Interest form", "Sign up to join", C.links.joinForm) +
       card("sparkles", "Division", "Division 12 East · CNH District", C.links.division);
   </script>
 </body>

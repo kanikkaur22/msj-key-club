@@ -60,6 +60,10 @@
       <div>
         <div class="footer-brand"><span class="brand-logo"><img src="assets/bee.svg" alt=""></span>MSJ Key Club</div>
         <p>Student-led service that strengthens our school and our community.</p>
+        <div class="footer-logos">
+          <img src="assets/key-club-international.png" alt="Key Club International logo">
+          <img src="assets/msj-crest.png" alt="Mission San Jose High School crest">
+        </div>
       </div>
       <div>
         <h4 class="footer-title">Explore</h4>
@@ -68,8 +72,12 @@
         </ul>
       </div>
       <div class="footer-meet">
-        <h4 class="footer-title">Meet with us</h4>
-        <strong>${C.meeting.day}</strong><div>${C.meeting.place}</div>
+        <h4 class="footer-title">Get in touch</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:${C.contact.email}">${C.contact.email}</a></li>
+          <li><a href="${C.contact.socialUrl}" target="_blank" rel="noopener">${C.contact.social} on Instagram</a></li>
+          <li><a href="${C.links.joinForm}" target="_blank" rel="noopener">Interest form</a></li>
+        </ul>
       </div>
     </div>`;
   document.body.appendChild(footer);

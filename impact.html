@@ -15,27 +15,24 @@
       <div class="container">
         <p class="eyebrow">Our impact</p>
         <h1>Small acts. Big buzz.</h1>
-        <p class="lead">Every hour our members serve adds up. Here's what the hive has accomplished this year.</p>
+        <p class="lead">Here's what the hive is working toward this year.</p>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" style="padding-top:72px">
       <div class="container">
-        <div class="card reveal">
-          <p class="eyebrow" style="margin:0">Club goal</p>
-          <h3 style="margin:16px 0 0" id="goal-title">Service hours</h3>
-          <div class="progress" role="progressbar" aria-valuemin="0" id="goal-bar"><span></span></div>
-          <p style="margin-top:16px" id="goal-text"></p>
-        </div>
-        <div class="grid-3" style="margin-top:34px" id="stats"></div>
+        <p class="eyebrow">Club goals</p>
+        <h2>This year's targets</h2>
+        <div class="grid-2 grid-4" id="goals" style="margin-top:28px"></div>
       </div>
     </section>
 
     <section class="section section-tint">
       <div class="container">
-        <p class="eyebrow">Where it goes</p>
-        <h2>Causes we support</h2>
-        <div class="grid-3" style="margin-top:70px" id="highlights"></div>
+        <p class="eyebrow">Showing up</p>
+        <h2>Attendance at DCMs and major events</h2>
+        <p class="lead">Minimum number of members we want at each.</p>
+        <div class="attend" id="attendance"></div>
       </div>
     </section>
   </main>
@@ -43,29 +40,41 @@
   <script src="data.js"></script>
   <script src="main.js"></script>
   <script>
-    const I = window.CLUB.impact;
-    const ICONS = ["heart", "users", "sparkles", "pin", "heart", "sparkles"];
-    document.getElementById("stats").innerHTML = I.stats.map((s, i) => `
-      <div class="card stat reveal"><div class="icon-chip">${icon(ICONS[i % ICONS.length])}</div>
-        <div class="n" data-i="${i}">0</div><div class="l">${KC.esc(s.label)}</div></div>`).join("");
-    document.getElementById("highlights").innerHTML = I.highlights.map((h, i) => `
-      <div class="card reveal in"><div class="icon-chip">${icon(ICONS[i])}</div><h3>${KC.esc(h.title)}</h3><p>${KC.esc(h.text)}</p></div>`).join("");
+    const C = window.CLUB;
+    const ICONS = ["users", "users", "heart", "sparkles"];
+    const fmt = (g, n) => (g.prefix || "") + Number(n).toLocaleString();
+    document.getElementById("goals").innerHTML = C.goals.map((g, i) => {
+      const has = typeof g.current === "number";
+      const pct = has ? Math.min(100, Math.round((g.current / g.target) * 100)) : 0;
+      return `<div class="card goal reveal">
+        <div class="icon-chip">${icon(ICONS[i % ICONS.length])}</div>
+        <div class="n" data-i="${i}">${fmt(g, g.target)}</div>
+        <div class="l">${KC.esc(g.label)}</div>
+        ${g.note ? `<div class="note">${KC.esc(g.note)}</div>` : ""}
+        ${has ? `<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${g.target}" aria-valuenow="${g.current}"><span data-pct="${pct}"></span></div>
+                 <div class="progress-text">${fmt(g, g.current)} so far · ${pct}%</div>` : ""}
+      </div>`;
+    }).join("");
 
-    const hours = I.stats[0].value;
-    const pct = Math.min(100, Math.round((hours / I.goalHours) * 100));
-    const bar = document.getElementById("goal-bar");
-    bar.setAttribute("aria-valuemax", I.goalHours); bar.setAttribute("aria-valuenow", hours);
-    document.getElementById("goal-text").textContent = `${hours.toLocaleString()} of ${I.goalHours.toLocaleString()} hours · ${pct}% of the way there`;
+    document.getElementById("attendance").innerHTML = C.attendance.map((a) => `
+      <div class="card reveal in">
+        <div class="people">${a.people}${a.people === 1 ? "+" : ""}</div>
+        <div class="sub">${a.people === 1 ? "person" : "people"}</div>
+        <div class="ev">${KC.esc(a.event)}</div>
+        ${a.full ? `<div class="sub">${KC.esc(a.full)}</div>` : ""}
+        ${a.note ? `<div class="sub">${KC.esc(a.note)}</div>` : ""}
+      </div>`).join("");
 
     const io = new IntersectionObserver((entries) => entries.forEach((e) => {
       if (!e.isIntersecting) return;
       io.unobserve(e.target);
       e.target.classList.add("in");
       const n = e.target.querySelector(".n");
-      if (n) { const s = I.stats[n.dataset.i]; KC.countUp(n, s.value, s.prefix || "", s.suffix || ""); }
-      if (e.target.contains(bar)) bar.firstElementChild.style.width = pct + "%";
+      if (n) { const g = C.goals[n.dataset.i]; KC.countUp(n, g.target, g.prefix || "", ""); }
+      const bar = e.target.querySelector(".progress span");
+      if (bar) bar.style.width = bar.dataset.pct + "%";
     }), { threshold: 0.3 });
-    document.querySelectorAll(".stat, .card:has(#goal-bar)").forEach((el) => io.observe(el));
+    document.querySelectorAll(".goal").forEach((el) => io.observe(el));
   </script>
 </body>
 </html>

@@ -22,12 +22,16 @@
     <section class="section" style="padding-top:72px">
       <div class="container">
         <p class="eyebrow" id="officer-year">Officers</p>
-        <div class="grid-3" id="officers"></div>
+        <h2>Executive board</h2>
+        <div class="grid-3" id="executives" style="margin-top:28px"></div>
 
-        <div class="cta-card reveal" style="margin-top:48px">
+        <h2 style="margin-top:72px">Non-executive board</h2>
+        <div class="grid-2 grid-4" id="non-executives" style="margin-top:28px"></div>
+
+        <div class="cta-card reveal" style="margin-top:56px">
           <div>
-            <h3>Faculty advisor</h3>
-            <p id="advisor"></p>
+            <h3>Want to reach an officer?</h3>
+            <p>Email <a id="email-link"></a> or DM <a data-link-social target="_blank" rel="noopener">@msjkeyclub</a>.</p>
           </div>
           <a class="btn btn-primary" href="about.html#contact">Contact us <span data-icon="arrow"></span></a>
         </div>
@@ -41,7 +45,7 @@
     const C = window.CLUB;
     const initials = (n) => n.split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join("").toUpperCase();
     document.getElementById("officer-year").textContent = `${C.officerYear} officers`;
-    document.getElementById("officers").innerHTML = C.officers.map((o) => `
+    const cards = (list) => list.map((o) => `
       <div class="card officer reveal in">
         ${o.photo
           ? `<img class="avatar" src="${KC.esc(o.photo)}" alt="${KC.esc(o.name)}">`
@@ -51,7 +55,11 @@
         ${o.grade ? `<div class="officer-grade">Grade ${KC.esc(o.grade)}</div>` : ""}
         <p style="margin-top:8px">${KC.esc(o.bio)}</p>
       </div>`).join("");
-    document.getElementById("advisor").textContent = `${C.advisor.name} · ${C.advisor.room}`;
+    document.getElementById("executives").innerHTML = cards(C.officers.executives);
+    document.getElementById("non-executives").innerHTML = cards(C.officers.nonExecutives);
+    const e = document.getElementById("email-link");
+    e.href = "mailto:" + C.contact.email; e.textContent = C.contact.email;
+    document.querySelectorAll("[data-link-social]").forEach((a) => (a.href = C.contact.socialUrl));
   </script>
 </body>
 </html>

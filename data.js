@@ -4,42 +4,46 @@
 // ============================================================
 
 window.CLUB = {
-  meeting: { day: "Tuesdays at 3:15 PM", place: "Room 214 · Mission San Jose High" },
   contact: {
-    email: "",          // e.g. "msjkeyclub@gmail.com" — leave "" to show a placeholder
-    social: "",         // e.g. "@msjkeyclub"
-    socialUrl: "",      // e.g. "https://instagram.com/msjkeyclub"
+    email: "msjhs.keyclub@gmail.com",
+    social: "@msjkeyclub",
+    socialUrl: "https://www.instagram.com/msjkeyclub/",
   },
   secretary: "2023–2024 Club Secretary Gitali",
   links: {
     division: "https://cnhkeyclub.org/",   // replace with the Division 12 East site
     district: "https://cnhkeyclub.org/",
     mrp: "https://cnhkeyclub.org/",        // replace with the MRP requirements page
-    joinForm: "",                          // optional Google Form link; if set, "Join" goes there
+    joinForm: "https://docs.google.com/forms/d/e/1FAIpQLSe7C7E6-EDNABAYABYwzYHd2ATHWpNh25tOTW3Xxr3UxFadrg/viewform",
   },
 
-  // Officer board — replace names/bios. "photo" is optional (e.g. "assets/officers/jane.jpg");
-  // without a photo, the officer's initials are shown.
+  // Officer board — replace "Officer name" with real names. "photo" is optional
+  // (e.g. "assets/officers/jane.jpg"); without a photo, initials are shown.
   officerYear: "2026–2027",
-  officers: [
-    { role: "President", name: "Officer name", grade: "", bio: "Leads the board and runs weekly meetings.", photo: "" },
-    { role: "Vice President", name: "Officer name", grade: "", bio: "Supports the President and coordinates committees.", photo: "" },
-    { role: "Secretary", name: "Gitali", grade: "", bio: "Tracks service hours and MRP forms. Questions about hours? Ask here.", photo: "" },
-    { role: "Treasurer", name: "Officer name", grade: "", bio: "Manages dues, fundraisers, and club finances.", photo: "" },
-    { role: "Editor", name: "Officer name", grade: "", bio: "Writes the monthly newsletter and keeps members informed.", photo: "" },
-    { role: "Webmaster", name: "Officer name", grade: "", bio: "Maintains this website and club social media.", photo: "" },
-  ],
-  advisor: { name: "Faculty advisor name", room: "Room 214" },
+  officers: {
+    executives: [
+      { role: "President", name: "Officer name", grade: "", bio: "Leads the officer board and sets the club's direction for the year.", photo: "" },
+      { role: "Vice President", name: "Officer name", grade: "", bio: "Supports the President and helps run club projects.", photo: "" },
+      { role: "Vice President", name: "Officer name", grade: "", bio: "Supports the President and helps run club projects.", photo: "" },
+      { role: "Secretary", name: "Officer name", grade: "", bio: "Tracks service hours and MRP forms. Questions about hours? Ask here.", photo: "" },
+      { role: "Treasurer", name: "Officer name", grade: "", bio: "Manages dues, fundraisers, and the club account.", photo: "" },
+      { role: "Bulletin Editor", name: "Officer name", grade: "", bio: "Writes the club bulletin and keeps members informed.", photo: "" },
+    ],
+    nonExecutives: [
+      { role: "Activity Coordinator", name: "Officer name", grade: "", bio: "Plans service events and volunteer opportunities.", photo: "" },
+      { role: "Activity Coordinator", name: "Officer name", grade: "", bio: "Plans service events and volunteer opportunities.", photo: "" },
+      { role: "Meeting Coordinator", name: "Officer name", grade: "", bio: "Organizes club meetings and gatherings.", photo: "" },
+      { role: "Publicist", name: "Officer name", grade: "", bio: "Runs @msjkeyclub and spreads the word about events.", photo: "" },
+    ],
+  },
 
-  // Categories: "Service", "Fundraiser", "Meeting", "Social", "Division"
+  // Categories: "Service", "Fundraiser", "Social", "Division"
   events: [
-    { title: "General Meeting", date: "2026-10-07", time: "3:15 PM", place: "Room 214", category: "Meeting",
-      description: "Weekly club meeting — announcements, upcoming events, and sign-ups." },
     { title: "Park Cleanup at Central Park", date: "2026-10-11", time: "9:00 AM – 12:00 PM", place: "Fremont Central Park", category: "Service",
       description: "Help pick up litter and restore trails around Lake Elizabeth.", hours: 3 },
     { title: "Halloween Bake Sale", date: "2026-10-24", time: "Lunch", place: "MSJ Quad", category: "Fundraiser",
       description: "Bake or volunteer at our booth — proceeds go to the Pediatric Trauma Program." },
-    { title: "Division 12 East Council Meeting", date: "2026-11-02", time: "4:00 PM", place: "Virtual", category: "Division",
+    { title: "Division Council Meeting (DCM)", date: "2026-11-02", time: "4:00 PM", place: "Virtual", category: "Division",
       description: "Monthly division meeting with clubs across Division 12 East." },
     { title: "Food Bank Sorting", date: "2026-11-15", time: "10:00 AM – 1:00 PM", place: "Tri-City Volunteers", category: "Service",
       description: "Sort and pack donations for families in our community.", hours: 3 },
@@ -47,22 +51,20 @@ window.CLUB = {
       description: "Games, snacks, and a gift exchange with the hive." },
   ],
 
-  impact: {
-    goalHours: 5000,
-    stats: [
-      { value: 3240, suffix: "", label: "Service hours logged this year" },
-      { value: 120, suffix: "+", label: "Active members" },
-      { value: 28, suffix: "", label: "Service events hosted" },
-      { value: 4200, prefix: "$", suffix: "", label: "Raised for charity" },
-      { value: 9, suffix: "", label: "Community partners" },
-      { value: 35, suffix: "", label: "MRP award recipients" },
-    ],
-    highlights: [
-      { title: "Pediatric Trauma Program", text: "Funds raised help children receive critical trauma care across the CNH District." },
-      { title: "Local food security", text: "Members volunteer monthly to sort and distribute food to families in Fremont." },
-      { title: "Environmental service", text: "Park and creek cleanups keep our neighborhoods green and safe." },
-    ],
-  },
+  // Club goals for the year. Set "current" to show a progress bar (leave null to hide it).
+  goals: [
+    { target: 15, label: "Dues-paid members", note: "Minimum", current: null },
+    { target: 40, label: "Combined members", note: "At least — including non-dues-paid", current: null },
+    { target: 200, label: "Service hours", note: "", current: null },
+    { target: 800, prefix: "$", label: "In the club account", note: "At least", current: null },
+  ],
+  // Attendance goals for DCMs and major events
+  attendance: [
+    { event: "DCMs", full: "Division Council Meetings", people: 1, note: "At least 1 person at most DCMs" },
+    { event: "FRN", people: 4, note: "" },
+    { event: "KCTC / RTC", people: 2, note: "" },
+    { event: "DCON", full: "District Convention", people: 2, note: "Hopefully!" },
+  ],
 
   mrpLevels: {
     Bronze: "Starting level — complete the required service hours and fulfillments listed in the CNH MRP guide.",
