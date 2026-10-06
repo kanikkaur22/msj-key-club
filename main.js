@@ -30,7 +30,7 @@
       <nav class="nav" id="nav">
         ${NAV.map(([h, t, k]) => `<a href="${h}"${k === page ? ' aria-current="page"' : ""}>${t}</a>`).join("")}
       </nav>
-      <a class="btn btn-primary header-cta" href="join.html">Join the hive</a>
+      <a class="btn btn-primary header-cta" href="${C.links.joinForm}" target="_blank" rel="noopener">Join the hive</a>
       <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">${icon("menu")}</button>
     </div>`;
   document.body.prepend(header);
@@ -43,7 +43,7 @@
   });
   if (!nav.querySelector('a[href="join.html"]')) {
     const j = document.createElement("a");
-    j.href = "join.html"; j.textContent = "Join the hive"; j.className = "nav-join";
+    j.href = C.links.joinForm; j.target = "_blank"; j.rel = "noopener"; j.textContent = "Join the hive"; j.className = "nav-join";
     if (page === "join") j.setAttribute("aria-current", "page");
     nav.appendChild(j);
   }
