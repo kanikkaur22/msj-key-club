@@ -287,3 +287,4 @@ h1, h2, h3 { font-family: var(--font-head); font-weight: 800; line-height: 1.15;
 .attend .ev { font-family: var(--font-head); font-weight: 800; font-size: 19px; margin-top: 10px; }
 .attend .sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
 @media (max-width: 860px) { .attend { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+.divider { border: 0; border-top: 2px dashed var(--line); margin: 48px 0; }
