@@ -23,7 +23,7 @@ window.CLUB = {
   officers: {
     executives: [
       { role: "President", name: "Riya", grade: "12", bio: "Hi everyone! I'm Riya, and I am so excited to lead this club and serve our community as MSJ Key Club's 2026-2027 president. In my free time, I love drawing, singing, cooking, watching soccer, and building F1 car legos!", photo: "assets/officers/riya.jpg" },
-      { role: "Vice President", name: "Shravika", grade: "12", bio: "Supports the President and helps run club projects.", photo: "assets/officers/shravika.jpg" },
+      { role: "Vice President", name: "Shravika", grade: "12", bio: "Hey, my name is Shravika, and I'm one of the Co-Vice Presidents! I help out with planning events and supporting the club however I can. In my free time, I enjoy playing piano, drawing, and playing badminton!", photo: "assets/officers/shravika.jpg" },
       { role: "Vice President", name: "Michelle", grade: "11", bio: "Hi there! I'm Michelle, and as Key Club VP I help organize volunteer events and keep our members engaged. In my free time, you'll find me hunting for the good cafe or sleeping on my floor.", photo: "assets/officers/michelle.jpg" },
       { role: "Secretary", name: "Celina", grade: "12", bio: "My name is Celina and I love crocheting, going out to study and trying new foods. If you have any questions about membership or division events feel free to ask me!", photo: "assets/officers/celina.jpg" },
       { role: "Treasurer", name: "Deborah", grade: "11", bio: "As treasurer for this club, my job consists of planning all our fundraisers and making sure all forms are turned in on time. I also turn in requisition forms to request reimbursements for all our fundraising or event items.", photo: "assets/officers/deborah.jpg" },
