@@ -41,7 +41,7 @@ window.CLUB = {
   // The club's Google Calendar ID (Google Calendar → Settings → your club calendar →
   // "Integrate calendar" → Calendar ID, e.g. "abc123@group.calendar.google.com").
   // The calendar must be public: "Access permissions" → "Make available to public".
-  calendarId: "",
+  calendarId: "b374c234bd7eeef85aa92026c62116c8d6049e4dc35a9b34d4c1f02403b854a2@group.calendar.google.com",
 
   // ===== Impact page =====
   // Real numbers from recent terms. Each shows as a big stat card.
