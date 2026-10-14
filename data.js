@@ -37,6 +37,12 @@ window.CLUB = {
     ],
   },
 
+  // ===== Events =====
+  // Paste the Google Sheet "Publish to web" CSV link here. Once it's set, the website
+  // shows the events from the sheet and ignores the sample list below.
+  eventsSheet: "",
+
+  // Sample events (only used while eventsSheet is empty).
   // Categories: "Service", "Fundraiser", "Division"
   events: [
     { title: "Park Cleanup at Central Park", date: "2026-10-11", time: "9:00 AM – 12:00 PM", place: "Fremont Central Park", category: "Service",

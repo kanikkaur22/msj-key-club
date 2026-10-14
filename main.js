@@ -102,12 +102,74 @@
 window.KC = {
   esc: (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])),
   parseDate: (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d); },
-  upcoming: () => {
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    return window.CLUB.events
-      .filter((e) => KC.parseDate(e.date) >= today)
-      .sort((a, b) => KC.parseDate(a.date) - KC.parseDate(b.date));
+  // Loads events from the published Google Sheet (CLUB.eventsSheet) if set,
+  // otherwise from the events list in data.js.
+  loadEvents: async () => {
+    const url = window.CLUB.eventsSheet;
+    if (!url) return window.CLUB.events;
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error(res.status);
+      return KC.sheetToEvents(await res.text());
+    } catch (err) {
+      console.warn("Could not load events sheet, using data.js instead", err);
+      return window.CLUB.events;
+    }
   },
+  // Columns (any order, case doesn't matter): Title, Date, Time, Location, Category, Description, Hours, Signup
+  sheetToEvents: (csv) => {
+    const rows = KC.parseCSV(csv).filter((r) => r.some((c) => c.trim()));
+    if (!rows.length) return [];
+    const head = rows[0].map((h) => h.trim().toLowerCase());
+    const col = (row, ...names) => {
+      for (const n of names) { const i = head.indexOf(n); if (i > -1 && row[i]) return row[i].trim(); }
+      return "";
+    };
+    return rows.slice(1).map((r) => ({
+      title: col(r, "title", "event", "name"),
+      date: KC.toISO(col(r, "date")),
+      time: col(r, "time"),
+      place: col(r, "location", "place", "where"),
+      category: col(r, "category", "type") || "Service",
+      description: col(r, "description", "details"),
+      hours: Number(col(r, "hours", "service hours")) || 0,
+      signup: col(r, "signup", "sign up", "signup link", "link"),
+    })).filter((e) => e.title && e.date);
+  },
+  parseCSV: (text) => {
+    const rows = []; let row = [], cell = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) {
+        if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+        else if (c === '"') q = false;
+        else cell += c;
+      } else if (c === '"') q = true;
+      else if (c === ",") { row.push(cell); cell = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (c === "\r" && text[i + 1] === "\n") i++;
+        row.push(cell); rows.push(row); row = []; cell = "";
+      } else cell += c;
+    }
+    if (cell || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  },
+  // Accepts 2026-10-24, 10/24/2026, or "Oct 24, 2026"; returns YYYY-MM-DD ("" if unreadable)
+  toISO: (s) => {
+    if (!s) return "";
+    if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(s)) { const [y, m, d] = s.split("-"); return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`; }
+    const us = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+    if (us) { const y = us[3].length === 2 ? "20" + us[3] : us[3]; return `${y}-${us[1].padStart(2, "0")}-${us[2].padStart(2, "0")}`; }
+    const d = new Date(s);
+    return isNaN(d) ? "" : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  },
+  today: () => { const t = new Date(); t.setHours(0, 0, 0, 0); return t; },
+  upcoming: (events) => events
+    .filter((e) => KC.parseDate(e.date) >= KC.today())
+    .sort((a, b) => KC.parseDate(a.date) - KC.parseDate(b.date)),
+  past: (events) => events
+    .filter((e) => KC.parseDate(e.date) < KC.today())
+    .sort((a, b) => KC.parseDate(b.date) - KC.parseDate(a.date)),
   eventCard: (e) => {
     const d = KC.parseDate(e.date);
     const m = d.toLocaleString("en-US", { month: "short" });
@@ -115,23 +177,26 @@ window.KC = {
     return `<article class="event">
       <div class="event-date"><div class="m">${m}</div><div class="d">${d.getDate()}</div></div>
       <div>
-        <span class="tag">${KC.esc(e.category)}</span>
+        ${e.category ? `<span class="tag">${KC.esc(e.category)}</span>` : ""}
         <h3>${KC.esc(e.title)}</h3>
         <div class="meta">
-          <span>${icon("clock")}${wd} · ${KC.esc(e.time)}</span>
-          <span>${icon("pin")}${KC.esc(e.place)}</span>
+          <span>${icon("clock")}${wd}${e.time ? " · " + KC.esc(e.time) : ""}</span>
+          ${e.place ? `<span>${icon("pin")}${KC.esc(e.place)}</span>` : ""}
           ${e.hours ? `<span>${icon("heart")}${e.hours} service hrs</span>` : ""}
         </div>
-        <p style="color:var(--muted);margin:12px 0 0">${KC.esc(e.description)}</p>
+        ${e.description ? `<p style="color:var(--muted);margin:12px 0 0">${KC.esc(e.description)}</p>` : ""}
       </div>
-      <a class="btn btn-outline" href="${KC.calLink(e)}" target="_blank" rel="noopener">Add to calendar</a>
+      <div class="event-actions">
+        ${e.signup ? `<a class="btn btn-primary" href="${KC.esc(e.signup)}" target="_blank" rel="noopener">Sign up</a>` : ""}
+        <a class="btn btn-outline" href="${KC.calLink(e)}" target="_blank" rel="noopener">Add to calendar</a>
+      </div>
     </article>`;
   },
   calLink: (e) => {
     const d = e.date.replace(/-/g, "");
     const next = KC.parseDate(e.date); next.setDate(next.getDate() + 1);
     const end = `${next.getFullYear()}${String(next.getMonth() + 1).padStart(2, "0")}${String(next.getDate()).padStart(2, "0")}`;
-    const p = new URLSearchParams({ action: "TEMPLATE", text: `MSJ Key Club: ${e.title}`, dates: `${d}/${end}`, details: `${e.time} — ${e.description}`, location: e.place });
+    const p = new URLSearchParams({ action: "TEMPLATE", text: `MSJ Key Club: ${e.title}`, dates: `${d}/${end}`, details: [e.time, e.description].filter(Boolean).join(" — "), location: e.place || "" });
     return `https://calendar.google.com/calendar/render?${p}`;
   },
   countUp: (el, target, prefix = "", suffix = "") => {
