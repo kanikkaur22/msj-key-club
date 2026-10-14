@@ -295,5 +295,3 @@ h1, h2, h3 { font-family: var(--font-head); font-weight: 800; line-height: 1.15;
 .impact-body { padding: 22px 24px 26px; }
 .impact-body h3 { margin: 6px 0 6px; }
 [hidden] { display: none !important; }
-.event-actions { display: flex; flex-direction: column; gap: 10px; }
-@media (max-width: 860px) { .event-actions { grid-column: 1 / -1; } .event-actions .btn { justify-content: center; } }

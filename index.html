@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/bee.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body data-page="home">
   <main>
@@ -59,15 +59,13 @@
     </section>
   </main>
 
-  <script src="data.js?v=13"></script>
-  <script src="main.js?v=13"></script>
+  <script src="data.js?v=12"></script>
+  <script src="main.js?v=12"></script>
   <script>
-    KC.loadEvents().then((events) => {
-      const list = KC.upcoming(events).slice(0, 3);
-      document.getElementById("next-events").innerHTML = list.length
-        ? list.map(KC.eventCard).join("")
-        : '<p class="empty">No upcoming events yet — check back soon!</p>';
-    });
+    const list = KC.upcoming().slice(0, 3);
+    document.getElementById("next-events").innerHTML = list.length
+      ? list.map(KC.eventCard).join("")
+      : '<p class="empty">No upcoming events yet — check back soon!</p>';
   </script>
 </body>
 </html>
