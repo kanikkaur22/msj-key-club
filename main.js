@@ -18,7 +18,7 @@
 
   // "Our impact" only shows once data.js has real stats or past-event photos
   const hasImpact = (C.impactStats || []).length || (C.recentImpact || []).length;
-  const NAV = [["index.html", "Home", "home"], ["about.html", "About us", "about"], ["events.html", "Events", "events"],
+  const NAV = [["index.html", "Home", "home"], ["about.html", "About us", "about"], ["events.html", "Events", "events"], ["dues.html", "Dues", "dues"],
     ...(hasImpact ? [["impact.html", "Our impact", "impact"]] : []), ["officers.html", "Officers", "officers"]];
 
   // ----- Header -----
@@ -71,7 +71,7 @@
       <div>
         <h4 class="footer-title">Explore</h4>
         <ul class="footer-links">
-          <li><a href="about.html">About us</a></li><li><a href="events.html">Events</a></li>${hasImpact ? '<li><a href="impact.html">Our impact</a></li>' : ""}<li><a href="officers.html">Officers</a></li>
+          <li><a href="about.html">About us</a></li><li><a href="events.html">Events</a></li><li><a href="dues.html">Dues</a></li>${hasImpact ? '<li><a href="impact.html">Our impact</a></li>' : ""}<li><a href="officers.html">Officers</a></li>
         </ul>
       </div>
       <div class="footer-meet">

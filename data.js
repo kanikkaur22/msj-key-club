@@ -9,12 +9,14 @@ window.CLUB = {
     social: "@msjkeyclub",
     socialUrl: "https://www.instagram.com/msjkeyclub/",
   },
+  dues: { amount: "$10" },
   secretary: "2023–2024 Club Secretary Gitali",
   links: {
     division: "https://cnhkeyclub.org/",   // replace with the Division 12 East site
     district: "https://cnhkeyclub.org/",
     mrp: "https://cnhkeyclub.org/",        // replace with the MRP requirements page
     joinForm: "https://docs.google.com/forms/d/e/1FAIpQLSe7C7E6-EDNABAYABYwzYHd2ATHWpNh25tOTW3Xxr3UxFadrg/viewform",
+    duesForm: "https://tinyurl.com/msjkeydues2627",
   },
 
   // Officer board — replace "Officer name" with real names. "photo" is optional

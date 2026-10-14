@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dues · MSJ Key Club</title>
+  <meta name="description" content="How to become a dues-paid member of MSJ Key Club.">
+  <link rel="icon" href="assets/bee.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=18">
+</head>
+<body data-page="dues">
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Membership dues</p>
+        <h1>Become a dues-paid member.</h1>
+        <p class="lead">For just <strong id="dues-amount">$10</strong>, you become an official member of Key Club International for the year.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" data-link="duesForm" target="_blank" rel="noopener">Fill out the dues form <span data-icon="arrow"></span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:72px">
+      <div class="container">
+        <p class="eyebrow">Why pay dues?</p>
+        <h2>Member benefits</h2>
+        <div class="grid-3" style="margin-top:28px">
+          <div class="card reveal"><div class="icon-chip" data-icon="users"></div><h3>Official membership</h3>
+            <p>Become an official member of Key Club International.</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="sparkles"></div><h3>Scholarships, offices &amp; awards</h3>
+            <p>Be eligible to run for scholarships, officer positions, and awards!</p></div>
+          <div class="card reveal"><div class="icon-chip" data-icon="heart"></div><h3>Member perks</h3>
+            <p>Get a membership card, a global leadership certificate, and more!</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint">
+      <div class="container">
+        <p class="eyebrow">How to pay</p>
+        <h2>Three quick steps</h2>
+        <div class="steps">
+          <div class="step reveal"><div class="num">01</div><h3>Fill out the dues form</h3>
+            <p>Complete the <a data-link="duesForm" target="_blank" rel="noopener">dues Google Form</a>.</p></div>
+          <div class="step reveal"><div class="num">02</div><h3>Put cash in an envelope</h3>
+            <p>Place <span class="dues-amt">$10</span> in cash in an envelope labeled with your <strong>full name and grade</strong>.</p></div>
+          <div class="step reveal"><div class="num">03</div><h3>Turn it in</h3>
+            <p>Hand in your envelope to <strong>B4 (Ms. Tseng's room)</strong> or give it to any Key Club officer.</p></div>
+        </div>
+        <div class="cta-card reveal">
+          <div>
+            <h3>Questions about dues?</h3>
+            <p>Email <a id="email-link"></a> or DM <a data-link-social target="_blank" rel="noopener">@msjkeyclub</a>.</p>
+          </div>
+          <a class="btn btn-primary" data-link="duesForm" target="_blank" rel="noopener">Dues form <span data-icon="arrow"></span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js?v=18"></script>
+  <script src="main.js?v=18"></script>
+  <script>
+    const C = window.CLUB;
+    document.getElementById("dues-amount").textContent = C.dues.amount;
+    document.querySelectorAll(".dues-amt").forEach((el) => (el.textContent = C.dues.amount));
+    const e = document.getElementById("email-link");
+    e.href = "mailto:" + C.contact.email; e.textContent = C.contact.email;
+    document.querySelectorAll("[data-link-social]").forEach((a) => (a.href = C.contact.socialUrl));
+  </script>
+</body>
+</html>
