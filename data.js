@@ -37,17 +37,11 @@ window.CLUB = {
     ],
   },
 
-  // Categories: "Service", "Fundraiser", "Division"
-  events: [
-    { title: "Park Cleanup at Central Park", date: "2026-10-11", time: "9:00 AM – 12:00 PM", place: "Fremont Central Park", category: "Service",
-      description: "Help pick up litter and restore trails around Lake Elizabeth.", hours: 3 },
-    { title: "Halloween Bake Sale", date: "2026-10-24", time: "Lunch", place: "MSJ Quad", category: "Fundraiser",
-      description: "Bake or volunteer at our booth — proceeds go to the Pediatric Trauma Program." },
-    { title: "Division Council Meeting (DCM)", date: "2026-11-02", time: "4:00 PM", place: "Virtual", category: "Division",
-      description: "Monthly division meeting with clubs across Division 12 East." },
-    { title: "Food Bank Sorting", date: "2026-11-15", time: "10:00 AM – 1:00 PM", place: "Tri-City Volunteers", category: "Service",
-      description: "Sort and pack donations for families in our community.", hours: 3 },
-  ],
+  // ===== Events =====
+  // The club's Google Calendar ID (Google Calendar → Settings → your club calendar →
+  // "Integrate calendar" → Calendar ID, e.g. "abc123@group.calendar.google.com").
+  // The calendar must be public: "Access permissions" → "Make available to public".
+  calendarId: "",
 
   // ===== Impact page =====
   // Real numbers from recent terms. Each shows as a big stat card.

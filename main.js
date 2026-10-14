@@ -102,38 +102,19 @@
 window.KC = {
   esc: (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])),
   parseDate: (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d); },
-  upcoming: () => {
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    return window.CLUB.events
-      .filter((e) => KC.parseDate(e.date) >= today)
-      .sort((a, b) => KC.parseDate(a.date) - KC.parseDate(b.date));
+  // Google Calendar embed. mode: "AGENDA" (list) or "MONTH" (grid).
+  calendar: (mode = "AGENDA", height = 600) => {
+    const id = window.CLUB.calendarId;
+    if (!id) return `<p class="empty">Our event calendar is coming soon. Follow <a href="${window.CLUB.contact.socialUrl}" target="_blank" rel="noopener">${window.CLUB.contact.social}</a> for upcoming events!</p>`;
+    const p = new URLSearchParams({
+      src: id, ctz: "America/Los_Angeles", mode,
+      showTitle: 0, showPrint: 0, showCalendars: 0, showTz: 0, showTabs: 0, showNav: 1, showDate: 1,
+      wkst: 1, bgcolor: "#ffffff", color: "#2f6a4f",
+    });
+    return `<div class="cal-frame"><iframe src="https://calendar.google.com/calendar/embed?${p}" style="height:${height}px" loading="lazy" title="MSJ Key Club events calendar"></iframe></div>`;
   },
-  eventCard: (e) => {
-    const d = KC.parseDate(e.date);
-    const m = d.toLocaleString("en-US", { month: "short" });
-    const wd = d.toLocaleString("en-US", { weekday: "long" });
-    return `<article class="event">
-      <div class="event-date"><div class="m">${m}</div><div class="d">${d.getDate()}</div></div>
-      <div>
-        <span class="tag">${KC.esc(e.category)}</span>
-        <h3>${KC.esc(e.title)}</h3>
-        <div class="meta">
-          <span>${icon("clock")}${wd} · ${KC.esc(e.time)}</span>
-          <span>${icon("pin")}${KC.esc(e.place)}</span>
-          ${e.hours ? `<span>${icon("heart")}${e.hours} service hrs</span>` : ""}
-        </div>
-        <p style="color:var(--muted);margin:12px 0 0">${KC.esc(e.description)}</p>
-      </div>
-      <a class="btn btn-outline" href="${KC.calLink(e)}" target="_blank" rel="noopener">Add to calendar</a>
-    </article>`;
-  },
-  calLink: (e) => {
-    const d = e.date.replace(/-/g, "");
-    const next = KC.parseDate(e.date); next.setDate(next.getDate() + 1);
-    const end = `${next.getFullYear()}${String(next.getMonth() + 1).padStart(2, "0")}${String(next.getDate()).padStart(2, "0")}`;
-    const p = new URLSearchParams({ action: "TEMPLATE", text: `MSJ Key Club: ${e.title}`, dates: `${d}/${end}`, details: `${e.time} — ${e.description}`, location: e.place });
-    return `https://calendar.google.com/calendar/render?${p}`;
-  },
+  // Link that lets someone add the club calendar to their own Google Calendar
+  subscribeLink: () => `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(window.CLUB.calendarId)}`,
   countUp: (el, target, prefix = "", suffix = "") => {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fmt = (n) => prefix + Math.round(n).toLocaleString() + suffix;
