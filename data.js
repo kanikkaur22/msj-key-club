@@ -49,20 +49,17 @@ window.CLUB = {
       description: "Sort and pack donations for families in our community.", hours: 3 },
   ],
 
-  // Club goals for the year. Set "current" to show a progress bar (leave null to hide it).
-  goals: [
-    { target: 15, label: "Dues-paid members", note: "Minimum", current: null },
-    { target: 40, label: "Combined members", note: "At least — including non-dues-paid", current: null },
-    { target: 200, label: "Service hours", note: "", current: null },
-    { target: 800, prefix: "$", label: "In the club account", note: "At least", current: null },
-  ],
-  // Attendance goals for DCMs and major events
-  attendance: [
-    { event: "DCMs", full: "Division Council Meetings", people: 1, note: "At least 1 person at most DCMs" },
-    { event: "FRN", people: 4, note: "" },
-    { event: "KCTC / RTC", people: 2, note: "" },
-    { event: "DCON", full: "District Convention", people: 2, note: "Hopefully!" },
-  ],
+  // ===== Impact page =====
+  // Real numbers from recent terms. Each shows as a big stat card.
+  // Example: { value: 1250, label: "Service hours logged", note: "2025–2026" }
+  // Use prefix: "$" for money. Leave the list empty to hide the section.
+  impactStats: [],
+
+  // Recent events with photos. Put photos in assets/impact/ and reference them here.
+  // Example: { title: "Park Cleanup", date: "2026-09-20", photo: "assets/impact/park-cleanup.jpg",
+  //            text: "18 members picked up 40 bags of litter at Central Park." }
+  // Leave the list empty to hide the section.
+  recentImpact: [],
 
   mrpLevels: {
     Bronze: "Starting level — complete the required service hours and fulfillments listed in the CNH MRP guide.",

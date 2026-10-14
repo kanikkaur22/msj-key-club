@@ -7,7 +7,7 @@
   <link rel="icon" href="assets/bee.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body data-page="impact">
   <main>
@@ -15,66 +15,80 @@
       <div class="container">
         <p class="eyebrow">Our impact</p>
         <h1>Small acts. Big buzz.</h1>
-        <p class="lead">Here's what the hive is working toward this year.</p>
+        <p class="lead">Here's what the hive has accomplished recently.</p>
       </div>
     </section>
 
-    <section class="section" style="padding-top:72px">
+    <section class="section" id="stats-section" style="padding-top:72px" hidden>
       <div class="container">
-        <p class="eyebrow">Club goals</p>
-        <h2>This year's targets</h2>
-        <div class="grid-2 grid-4" id="goals" style="margin-top:28px"></div>
+        <p class="eyebrow">By the numbers</p>
+        <h2>What we've done</h2>
+        <div class="grid-3" id="stats" style="margin-top:28px"></div>
       </div>
     </section>
 
-    <section class="section section-tint">
+    <section class="section section-tint" id="recent-section" hidden>
       <div class="container">
-        <p class="eyebrow">Showing up</p>
-        <h2>Attendance at DCMs and major events</h2>
-        <p class="lead">Minimum number of members we want at each.</p>
-        <div class="attend" id="attendance"></div>
+        <p class="eyebrow">Recent impact</p>
+        <h2>From our past events</h2>
+        <div class="grid-3" id="recent" style="margin-top:28px"></div>
+      </div>
+    </section>
+
+    <section class="section" id="empty-section" style="padding-top:72px" hidden>
+      <div class="container">
+        <p class="empty">Photos and numbers from our recent events are coming soon. Follow <a data-link-social target="_blank" rel="noopener">@msjkeyclub</a> to see what we've been up to!</p>
       </div>
     </section>
   </main>
 
-  <script src="data.js?v=11"></script>
-  <script src="main.js?v=11"></script>
+  <script src="data.js?v=12"></script>
+  <script src="main.js?v=12"></script>
   <script>
     const C = window.CLUB;
-    const ICONS = ["users", "users", "heart", "sparkles"];
-    const fmt = (g, n) => (g.prefix || "") + Number(n).toLocaleString();
-    document.getElementById("goals").innerHTML = C.goals.map((g, i) => {
-      const has = typeof g.current === "number";
-      const pct = has ? Math.min(100, Math.round((g.current / g.target) * 100)) : 0;
-      return `<div class="card goal reveal">
-        <div class="icon-chip">${icon(ICONS[i % ICONS.length])}</div>
-        <div class="n" data-i="${i}">${fmt(g, g.target)}</div>
-        <div class="l">${KC.esc(g.label)}</div>
-        ${g.note ? `<div class="note">${KC.esc(g.note)}</div>` : ""}
-        ${has ? `<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${g.target}" aria-valuenow="${g.current}"><span data-pct="${pct}"></span></div>
-                 <div class="progress-text">${fmt(g, g.current)} so far · ${pct}%</div>` : ""}
-      </div>`;
-    }).join("");
+    const stats = C.impactStats || [];
+    const recent = C.recentImpact || [];
+    const ICONS = ["heart", "users", "sparkles", "pin"];
 
-    document.getElementById("attendance").innerHTML = C.attendance.map((a) => `
-      <div class="card reveal in">
-        <div class="people">${a.people}${a.people === 1 ? "+" : ""}</div>
-        <div class="sub">${a.people === 1 ? "person" : "people"}</div>
-        <div class="ev">${KC.esc(a.event)}</div>
-        ${a.full ? `<div class="sub">${KC.esc(a.full)}</div>` : ""}
-        ${a.note ? `<div class="sub">${KC.esc(a.note)}</div>` : ""}
-      </div>`).join("");
+    if (stats.length) {
+      document.getElementById("stats-section").hidden = false;
+      document.getElementById("stats").innerHTML = stats.map((s, i) => `
+        <div class="card goal reveal">
+          <div class="icon-chip">${icon(ICONS[i % ICONS.length])}</div>
+          <div class="n" data-i="${i}">${(s.prefix || "") + Number(s.value).toLocaleString()}</div>
+          <div class="l">${KC.esc(s.label)}</div>
+          ${s.note ? `<div class="note">${KC.esc(s.note)}</div>` : ""}
+        </div>`).join("");
+    }
+
+    if (recent.length) {
+      document.getElementById("recent-section").hidden = false;
+      document.getElementById("recent").innerHTML = recent.map((r) => {
+        const date = r.date ? KC.parseDate(r.date).toLocaleDateString("en-US", { month: "long", year: "numeric" }) : "";
+        return `<article class="card impact-card reveal in">
+          ${r.photo ? `<img src="${KC.esc(r.photo)}" alt="${KC.esc(r.title)}" loading="lazy">` : ""}
+          <div class="impact-body">
+            ${date ? `<span class="tag">${date}</span>` : ""}
+            <h3>${KC.esc(r.title)}</h3>
+            ${r.text ? `<p>${KC.esc(r.text)}</p>` : ""}
+          </div>
+        </article>`;
+      }).join("");
+    }
+
+    if (!stats.length && !recent.length) {
+      document.getElementById("empty-section").hidden = false;
+      document.querySelectorAll("[data-link-social]").forEach((a) => (a.href = C.contact.socialUrl));
+    }
 
     const io = new IntersectionObserver((entries) => entries.forEach((e) => {
       if (!e.isIntersecting) return;
       io.unobserve(e.target);
       e.target.classList.add("in");
       const n = e.target.querySelector(".n");
-      if (n) { const g = C.goals[n.dataset.i]; KC.countUp(n, g.target, g.prefix || "", ""); }
-      const bar = e.target.querySelector(".progress span");
-      if (bar) bar.style.width = bar.dataset.pct + "%";
+      if (n) { const s = stats[n.dataset.i]; KC.countUp(n, s.value, s.prefix || "", ""); }
     }), { threshold: 0.3 });
-    document.querySelectorAll(".goal").forEach((el) => io.observe(el));
+    document.querySelectorAll("#stats .goal").forEach((el) => io.observe(el));
   </script>
 </body>
 </html>
