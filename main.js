@@ -16,7 +16,10 @@
   const icon = (n) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg>`;
   window.icon = icon;
 
-  const NAV = [["index.html", "Home", "home"], ["about.html", "About us", "about"], ["events.html", "Events", "events"], ["impact.html", "Our impact", "impact"], ["officers.html", "Officers", "officers"]];
+  // "Our impact" only shows once data.js has real stats or past-event photos
+  const hasImpact = (C.impactStats || []).length || (C.recentImpact || []).length;
+  const NAV = [["index.html", "Home", "home"], ["about.html", "About us", "about"], ["events.html", "Events", "events"],
+    ...(hasImpact ? [["impact.html", "Our impact", "impact"]] : []), ["officers.html", "Officers", "officers"]];
 
   // ----- Header -----
   const header = document.createElement("header");
@@ -68,7 +71,7 @@
       <div>
         <h4 class="footer-title">Explore</h4>
         <ul class="footer-links">
-          <li><a href="about.html">About us</a></li><li><a href="events.html">Events</a></li><li><a href="impact.html">Our impact</a></li><li><a href="officers.html">Officers</a></li>
+          <li><a href="about.html">About us</a></li><li><a href="events.html">Events</a></li>${hasImpact ? '<li><a href="impact.html">Our impact</a></li>' : ""}<li><a href="officers.html">Officers</a></li>
         </ul>
       </div>
       <div class="footer-meet">
