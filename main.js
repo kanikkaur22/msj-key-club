@@ -81,7 +81,7 @@
         </ul>
       </div>
     </div>
-    <div class="container footer-credit">Website built by Kanik Kaur and Celina Che</div>`;
+    <div class="container footer-credit">Website built by <strong>Kanik Kaur</strong> and <strong>Celina Che</strong></div>`;
   document.body.appendChild(footer);
 
   // ----- Fill [data-icon] placeholders -----

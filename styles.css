@@ -315,4 +315,5 @@ h1, h2, h3 { font-family: var(--font-head); font-weight: 800; line-height: 1.15;
 @media (max-width: 860px) { .gallery { columns: 2 140px; column-gap: 10px; } .gallery-item { margin-bottom: 10px; } }
 
 /* ---------- Footer credit ---------- */
-.site-footer .footer-credit { display: block; margin-top: 40px; padding-top: 18px; border-top: 1px solid #e3ebe7; color: #8a9a92; font-size: 13px; }
+.site-footer .footer-credit { display: block; margin-top: 40px; padding-top: 22px; border-top: 1px solid #e3ebe7; color: var(--ink); font-size: 16px; font-weight: 600; text-align: center; }
+.site-footer .footer-credit strong { color: var(--green); font-weight: 800; }
