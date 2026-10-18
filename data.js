@@ -64,7 +64,7 @@ window.CLUB = {
   recentImpact: [
     { title: "Kids Against Hunger Meal Packing", date: "2025-09-13", photo: "assets/impact/kah-group.jpg",
       text: "Members packed and boxed meals with Kids Against Hunger in the MSJ gym to help feed families around the world and around the corner." },
-    { title: "Shinn Park Garden", date: "2026-10-01", photo: "assets/impact/shinn-garden.jpg",
+    { title: "Shinn Park Garden", date: "2026-10-01", photo: "assets/impact/shinn-garden-2.jpg",
       text: "Members volunteered outdoors helping care for the garden at Shinn Park in Fremont." },
   ],
 
@@ -80,6 +80,7 @@ window.CLUB = {
     { src: "assets/impact/kah-table.jpg", caption: "Sealing station" },
     { src: "assets/impact/kah-checkin.jpg", caption: "Volunteer check-in" },
     { src: "assets/impact/club-group.jpg", caption: "MSJ Key Club" },
+    { src: "assets/impact/shinn-garden-2.jpg", caption: "Shinn Park garden" },
     { src: "assets/impact/shinn-garden.jpg", caption: "Shinn Park garden" },
   ],
 
