@@ -313,3 +313,6 @@ h1, h2, h3 { font-family: var(--font-head); font-weight: 800; line-height: 1.15;
 .lightbox-caption { color: #fff; text-align: center; margin: 12px 0 0; font-size: 15px; }
 .lightbox-close { position: fixed; top: 16px; right: 20px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: #fff; color: var(--ink); font-size: 28px; line-height: 1; cursor: pointer; }
 @media (max-width: 860px) { .gallery { columns: 2 140px; column-gap: 10px; } .gallery-item { margin-bottom: 10px; } }
+
+/* ---------- Footer credit ---------- */
+.site-footer .footer-credit { display: block; margin-top: 40px; padding-top: 18px; border-top: 1px solid #e3ebe7; color: #8a9a92; font-size: 13px; }

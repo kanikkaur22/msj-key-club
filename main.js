@@ -80,7 +80,8 @@
           <li><a href="${C.links.joinForm}" target="_blank" rel="noopener">Interest form</a></li>
         </ul>
       </div>
-    </div>`;
+    </div>
+    <div class="container footer-credit">Website built by Kanik Kaur and Celina Che</div>`;
   document.body.appendChild(footer);
 
   // ----- Fill [data-icon] placeholders -----
