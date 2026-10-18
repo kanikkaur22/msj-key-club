@@ -8,7 +8,8 @@
   <link rel="icon" href="assets/bee.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <script>document.write('<link rel="stylesheet" href="styles.css?t=' + Math.floor(Date.now() / 60000) + '">');</script>
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
 </head>
 <body data-page="home">
   <main>
@@ -59,8 +60,11 @@
     </section>
   </main>
 
-  <script src="data.js"></script>
-  <script src="main.js"></script>
+  <script>
+    // Load the shared content/menu files fresh (at most 1 minute old) so updates show up right away
+    (function () { var v = Math.floor(Date.now() / 60000);
+      document.write('<script src="data.js?t=' + v + '"><\/script><script src="main.js?t=' + v + '"><\/script>'); })();
+  </script>
   <script>
     document.getElementById("next-events").innerHTML = KC.calendar("AGENDA", 420);
   </script>
