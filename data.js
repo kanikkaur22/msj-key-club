@@ -49,13 +49,39 @@ window.CLUB = {
   // Real numbers from recent terms. Each shows as a big stat card.
   // Example: { value: 1250, label: "Service hours logged", note: "2025–2026" }
   // Use prefix: "$" for money. Leave the list empty to hide the section.
-  impactStats: [],
+  impactStats: [
+    { value: 17, label: "Dues-paid members" },
+    { value: 70, suffix: "+", label: "Total members", note: "On our mailing list" },
+    { value: 7, label: "Service events", note: "Last year" },
+    { value: 200, label: "Service hours given out" },
+    { value: 400, prefix: "$", label: "Fundraised", note: "This year" },
+  ],
 
   // Recent events with photos. Put photos in assets/impact/ and reference them here.
   // Example: { title: "Park Cleanup", date: "2026-09-20", photo: "assets/impact/park-cleanup.jpg",
   //            text: "18 members picked up 40 bags of litter at Central Park." }
   // Leave the list empty to hide the section.
-  recentImpact: [],
+  recentImpact: [
+    { title: "Kids Against Hunger Meal Packing", date: "2025-09-13", photo: "assets/impact/kah-group.jpg",
+      text: "Members packed and boxed meals with Kids Against Hunger in the MSJ gym to help feed families around the world and around the corner." },
+    { title: "Shinn Park Garden", date: "2026-10-01", photo: "assets/impact/shinn-garden.jpg",
+      text: "Members volunteered outdoors helping care for the garden at Shinn Park in Fremont." },
+  ],
+
+  // Photo gallery on the Impact page. Add photos to assets/impact/ and list them here.
+  impactGallery: [
+    { src: "assets/impact/kah-shirts.jpg", caption: "Kids Against Hunger meal packing" },
+    { src: "assets/impact/kah-packing.jpg", caption: "Packing meals" },
+    { src: "assets/impact/kah-sealing.jpg", caption: "Sealing meal bags" },
+    { src: "assets/impact/kah-boxes.jpg", caption: "Boxing up meals" },
+    { src: "assets/impact/kah-duo.jpg", caption: "Kids Against Hunger meal packing" },
+    { src: "assets/impact/kah-filling.jpg", caption: "Filling boxes" },
+    { src: "assets/impact/kah-banner.jpg", caption: "Kids Against Hunger meal packing" },
+    { src: "assets/impact/kah-table.jpg", caption: "Sealing station" },
+    { src: "assets/impact/kah-checkin.jpg", caption: "Volunteer check-in" },
+    { src: "assets/impact/club-group.jpg", caption: "MSJ Key Club" },
+    { src: "assets/impact/shinn-garden.jpg", caption: "Shinn Park garden" },
+  ],
 
   mrpLevels: {
     Bronze: "Starting level — complete the required service hours and fulfillments listed in the CNH MRP guide.",

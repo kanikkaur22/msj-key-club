@@ -35,6 +35,20 @@
       </div>
     </section>
 
+    <section class="section" id="gallery-section" hidden>
+      <div class="container">
+        <p class="eyebrow">Gallery</p>
+        <h2>The hive in action</h2>
+        <div class="gallery" id="gallery" style="margin-top:28px"></div>
+      </div>
+    </section>
+
+    <dialog class="lightbox" id="lightbox" aria-label="Photo">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <img alt="">
+      <p class="lightbox-caption"></p>
+    </dialog>
+
     <section class="section" id="empty-section" style="padding-top:72px" hidden>
       <div class="container">
         <p class="empty">Photos and numbers from our recent events are coming soon. Follow <a data-link-social target="_blank" rel="noopener">@msjkeyclub</a> to see what we've been up to!</p>
@@ -55,7 +69,7 @@
       document.getElementById("stats").innerHTML = stats.map((s, i) => `
         <div class="card goal reveal">
           <div class="icon-chip">${icon(ICONS[i % ICONS.length])}</div>
-          <div class="n" data-i="${i}">${(s.prefix || "") + Number(s.value).toLocaleString()}</div>
+          <div class="n" data-i="${i}">${(s.prefix || "") + Number(s.value).toLocaleString() + (s.suffix || "")}</div>
           <div class="l">${KC.esc(s.label)}</div>
           ${s.note ? `<div class="note">${KC.esc(s.note)}</div>` : ""}
         </div>`).join("");
@@ -76,7 +90,25 @@
       }).join("");
     }
 
-    if (!stats.length && !recent.length) {
+    const gallery = C.impactGallery || [];
+    if (gallery.length) {
+      document.getElementById("gallery-section").hidden = false;
+      document.getElementById("gallery").innerHTML = gallery.map((g, i) => `
+        <button class="gallery-item" data-i="${i}" aria-label="View photo: ${KC.esc(g.caption || "")}">
+          <img src="${KC.esc(g.src)}" alt="${KC.esc(g.caption || "")}" loading="lazy">
+        </button>`).join("");
+      const box = document.getElementById("lightbox");
+      document.getElementById("gallery").addEventListener("click", (e) => {
+        const b = e.target.closest(".gallery-item"); if (!b) return;
+        const g = gallery[b.dataset.i];
+        box.querySelector("img").src = g.src; box.querySelector("img").alt = g.caption || "";
+        box.querySelector(".lightbox-caption").textContent = g.caption || "";
+        box.showModal();
+      });
+      box.addEventListener("click", (e) => { if (e.target === box || e.target.closest(".lightbox-close")) box.close(); });
+    }
+
+    if (!stats.length && !recent.length && !gallery.length) {
       document.getElementById("empty-section").hidden = false;
       document.querySelectorAll("[data-link-social]").forEach((a) => (a.href = C.contact.socialUrl));
     }
@@ -86,7 +118,7 @@
       io.unobserve(e.target);
       e.target.classList.add("in");
       const n = e.target.querySelector(".n");
-      if (n) { const s = stats[n.dataset.i]; KC.countUp(n, s.value, s.prefix || "", ""); }
+      if (n) { const s = stats[n.dataset.i]; KC.countUp(n, s.value, s.prefix || "", s.suffix || ""); }
     }), { threshold: 0.3 });
     document.querySelectorAll("#stats .goal").forEach((el) => io.observe(el));
   </script>
